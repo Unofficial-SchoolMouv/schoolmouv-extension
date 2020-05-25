@@ -1,0 +1,23 @@
+{
+    "name": "PDF and videos from SchoolMouv",
+    "version": "1.1",
+    "manifest_version": 2,
+
+    "description": "Gets schoolmouv.fr's premium videos and pdfs for free, no need to be a registered user",
+    "author": "t0pl",
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": true
+    },
+    "icons" : {
+        "16" : "icon16.png",
+        "48" : "icon48.png",
+        "128" : "icon128.png"
+    },
+    "permissions": [
+        "https://www.schoolmouv.fr/*", "https://*.vimeo.com/*", "https://*.akamaized.net/*", "webRequest", "webRequestBlocking", "tabs","activeTab"
+    ],
+    "browser_action": {
+        "default_title": "PDF and videos from SchoolMouv"
+    }
+}
