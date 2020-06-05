@@ -1,23 +1,23 @@
 {
-    "name": "PDF and videos from SchoolMouv",
-    "version": "1.1",
+    "name": "SchoolMouv's premium resources made free",
+    "version": "1.2",
     "manifest_version": 2,
 
     "description": "Gets schoolmouv.fr's premium videos and pdfs for free, no need to be a registered user",
     "author": "t0pl",
     "background": {
-        "scripts": ["background.js"],
+        "scripts": ["./scripts/common.js","background.js", "./scripts/pdf.js","./scripts/video.js"],
         "persistent": true
     },
-    "icons" : {
-        "16" : "icon16.png",
-        "48" : "icon48.png",
-        "128" : "icon128.png"
+    "icons": {
+        "16": "images/icon16.png",
+        "48": "images/icon48.png",
+        "128": "images/icon128.png"
     },
     "permissions": [
-        "https://www.schoolmouv.fr/*", "https://*.vimeo.com/*", "https://*.akamaized.net/*", "webRequest", "webRequestBlocking", "tabs","activeTab"
+        "https://www.schoolmouv.fr/*", "https://*.vimeo.com/*", "https://*.akamaized.net/*", "webRequest", "webRequestBlocking", "tabs", "activeTab"
     ],
     "browser_action": {
-        "default_title": "PDF and videos from SchoolMouv"
+        "default_title": "SchoolMouv's premium resources made free"
     }
 }
