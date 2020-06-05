@@ -65,7 +65,7 @@ const get_urls_from_source_id = (to_json) => {
         parsed_data = JSON.parse(to_json).resources.state.resources
         let key = key_to_get_source_id()
         for (var index_ = 0; index_ < parsed_data[key].length; index_++) {
-            first_step_urls.push(`https://player.vimeo.com/video/${parsed_data.key[index_].source}?app_id=122963`);
+            first_step_urls.push(`https://player.vimeo.com/video/${parsed_data[key][index_].source}?app_id=122963`);
         }
     }
     else {
