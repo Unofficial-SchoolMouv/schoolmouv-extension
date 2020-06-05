@@ -19,5 +19,5 @@ Browsers based on `Chromium` and `Firefox` should be compatible as well on Windo
 ## Install🔥
 Install it manually
 
-See [this](https://webkul.com/blog/how-to-install-the-unpacked-extension-in-chrome/) for more info or
+See [this](https://developer.chrome.com/extensions/getstarted) for more info or
 drag and drop the xpi file into your browser (**firefox-like** only)
