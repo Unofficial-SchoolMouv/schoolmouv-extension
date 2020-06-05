@@ -25,12 +25,8 @@ const see_in_new_tab = (final_hidden_resource) => {
     browser.tabs.create({ "url": final_hidden_resource })
 }
 
-const see_in_new_window = (final_hidden_resource) => {
-    const incognito_ = browser.extension.inIncognitoContext;
-    browser.windows.create({ "url": final_hidden_resource, "incognito": incognito_ });
-}
-
 const isAndroid = () => {
+    //not used
     return typeof browser.windows.WindowType === "undefined"
 }
 

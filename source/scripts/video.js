@@ -29,7 +29,7 @@ const ____ = (url) => {
                         //_interesting_part.video.width _interesting_part.video.height
                         const all_mp4s_found = get_direct_links(_interesting_part);
                         console.log(all_mp4s_found);
-                        see_in_new_window(all_mp4s_found[0])
+                        see_in_new_tab(all_mp4s_found[0])
                     }
                 }
             })
