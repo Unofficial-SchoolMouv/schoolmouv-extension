@@ -6,15 +6,15 @@ Get schoolmouv's premium pdfs and videos - browser extension
 ## Prerequisites
 >It's a cross-browser extension, so you can use the exact same script for pretty much every web browsers out there.
 
-|         | Chrome | Safari | Firefox | Edge | Opera | Vivaldi | Brave | Tor | Yandex | Chromium | Kiwi | Qwant | Ghostery | Epic |
-| ------- | ------ | ------ | ------- | ---- | ----- | ------- | ----- | --- | ------ | -------- | ---- | ----- | -------- | ---- |
-| Windows | ✅    | ❌     | ✅     | ✅   | ✅   | ✅      | ✅    | ✅ | ✅    | ✅       | ❌   | ❌   | ❌       | ✅  |
-| Mac     | ✅    | ❌     | ✅     | ✅   | ✅   | ✅      | ✅    | ✅ | ❌    | ✅       | ❌   | ❌   | ❌       | ❌  |
-| Linux   | ✅    | ❌     | ✅     | ❌   | ✅   | ✅      | ✅    | ✅ | ✅    | ✅       | ❌   | ❌   | ❌       | ❌  |
-| Android | ❌    | ❌     | ✅     | ❌   | ❌   | ❌      | ❌    | ✅ | ✅    | ❌       | ✅   | ✅   | ✅       | ❌  |
-| iOS     | ❌    | ❌     | ❌     | ❌   | ❌   | ❌      | ❌    | ❌ | ❌    | ❌       | ❌   | ❌   | ❌       | ❌  |
+|         | Chrome | Safari | Firefox | Edge | Opera | Vivaldi | Brave | Tor | Yandex | Chromium | Kiwi | Qwant | Ghostery |
+| ------- | ------ | ------ | ------- | ---- | ----- | ------- | ----- | --- | ------ | -------- | ---- | ----- | -------- |
+| Windows | ✅    | ❌     | ✅     | ✅   | ✅   | ✅      | ✅    | ✅ | ✅    | ✅       | ❌   | ❌   | ❌       |
+| Mac     | ✅    | ❌     | ✅     | ✅   | ✅   | ✅      | ✅    | ✅ | ❌    | ✅       | ❌   | ❌   | ❌       |
+| Linux   | ✅    | ❌     | ✅     | ❌   | ✅   | ✅      | ✅    | ✅ | ✅    | ✅       | ❌   | ❌   | ❌       |
+| Android | ❌    | ❌     | ✅     | ❌   | ❌   | ❌      | ❌    | ✅ | ✅    | ❌       | ✅   | ✅   | ✅       |
+| iOS     | ❌    | ❌     | ❌     | ❌   | ❌   | ❌      | ❌    | ❌ | ❌    | ❌       | ❌   | ❌   | ❌       |
 
-Browsers based on `Chromium` and `Firefox` should be compatible as well on Windows, Mac or Linux (usually not on Android and iOS)
+Browsers based on `Chromium` and `Firefox` should be compatible as well on Windows, Mac and Linux (usually not on Android)
 
 ## Install🔥
 Install it manually
