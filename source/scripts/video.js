@@ -1,34 +1,33 @@
 /*
 @author:t0pl
 This tool isn't affiliated to SchoolMouv in any way
-
-NOTES
-    browser.windows.create not available in Android
-    
-TODO
-❌    Rearrange functions
-✅    Remove useless headers
-❌    Handle errors
-✅    Secure fonction access
-❌    Only open selected video
 */
 
+/* Error handling */
+
+function check_status_code(response) {
+
+    if (!response.ok) (console.warn(`${url} returned wrong status code: ${response.status}`));
+    return response.text();
+
+}
 
 /* Requests */
-const ____ = (url) => {
+const vimeo_player = (url) => {
     if (url) {
         set_listener();
-        fetch(url).then(function (response) {
-            if (!response.ok) console.warn(`${url} returned wrong status code: ${response.status}`);
-            return response.text()
-        })
-            .then(function (data) {
-                for (const part of data.split('};')) {
+        fetch(url).then(check_status_code)
+            .then(function (res) {
+                //Locate part of response containing mp4s
+                for (const part of res.split('};')) {
                     if (part.includes('.mp4')) {
-                        const _interesting_part = JSON.parse(`{${part.split('= {')[1]}}`);
-                        //_interesting_part.video.width _interesting_part.video.height
-                        const all_mp4s_found = get_direct_links(_interesting_part);
+
+                        const cleared_JSON = vimeo_JSON(part);
+                        const all_mp4s_found = direct_links(cleared_JSON);
+
                         console.log(all_mp4s_found);
+
+                        //Display results in new tab
                         see_in_new_tab(all_mp4s_found[0])
                     }
                 }
@@ -41,55 +40,75 @@ const ____ = (url) => {
 
 const get_video = () => {
     set_referer_in_headers()
-    fetch(window.url).then(function (response) {
-        if (!response.ok) (console.warn(`${url} returned wrong status code: ${response.status}`));
-        return response.text();
-    }).then(function (data) {
-        const to_json = `{${data.split('window.__INITIAL_STATE__={')[1].split('};(function(')[0]}}`;
-        const urls = get_urls_from_source_id(to_json);
-        console.log(urls);
-        for (const to_get of urls) {
-            ____(to_get)
-        }
-    }).catch(function (err) {
-        console.error('Error during request: ', err);
-    })
+
+    //Fetch schoolmouv webpage
+    fetch(window.url)
+        .then(check_status_code)
+        .then(function (data) {
+
+            const clear_json = schoolmouv_JSON(data);
+            const urls = source_2_Vimeo_URL(clear_json);
+
+            console.log(urls);
+
+            //Fetch all vimeo webpages
+            for (const to_get of urls) {
+                vimeo_player(to_get)
+            }
+        }).catch(function (err) {
+            console.error('Error during request: ', err);
+        })
 }
 
 /* Parsing */
-const get_urls_from_source_id = (to_json) => {
+const vimeo_JSON = (part) => {
+
+    //Locate JSON in response and Convert from Vimeo WebPage
+    let located_json = part.split('= {')[1];
+    let cleared_json = JSON.parse(`{${located_json}}`);
+
+    return cleared_json;
+}
+
+const schoolmouv_JSON = (res) => {
+
+    //Locate JSON in response and Convert from Schoolmouv WebPage
+    const to_json = `{${res.split('window.__INITIAL_STATE__={')[1].split('};(function(')[0]}}`;
+    const clear_json = JSON.parse(to_json);
+
+    return clear_json;
+}
+
+const source_2_Vimeo_URL = (clear_json) => {
     var first_step_urls = [];
-    var parsed_data = JSON.parse(to_json).sheet.resources;
-    if (parsed_data === undefined) {
-        console.log('registered user')
-        parsed_data = JSON.parse(to_json).resources.state.resources
-        let key = key_to_get_source_id()
-        for (var index_ = 0; index_ < parsed_data[key].length; index_++) {
-            first_step_urls.push(`https://player.vimeo.com/video/${parsed_data[key][index_].source}?app_id=122963`);
-        }
+    let parsed_data = clear_json.sheet.resources;
+
+    Object.keys(parsed_data).forEach(function (key) {
+
+        let source = parsed_data[key].source;
+        first_step_urls.push(`https://player.vimeo.com/video/${source}`);
+    })
+
+    if (first_step_urls === []) {
+        console.warn("'Source id' not found")
+        return []
     }
-    else {
-        console.log('unregistered user')
-        Object.keys(parsed_data).forEach(function (key) {
-            var source = parsed_data[key].source;
-            first_step_urls.push(`https://player.vimeo.com/video/${source}?app_id=122963`);
-        })
-    }
-    if (first_step_urls === []) console.warn("'Source id' not found")
-    return first_step_urls    
+    return first_step_urls
 }
 
 const key_to_get_source_id = () => {
+    //Needed if registered user, to find right key in {}
     return window.url.split('/').splice(-2).join('-'); //des-cartes-pour-comprendre-le-monde-cours-video
 }
 
-const get_direct_links = (json_) => {
+const direct_links = (cleared_JSON) => {
     let direct_links = [];
-    for (var _ = 0; _ < json_.request.files.progressive.length; _++) {
-        direct_links.push(json_.request.files.progressive[_].url);
+    for (var _ = 0; _ < cleared_JSON.request.files.progressive.length; _++) {
+        direct_links.push(cleared_JSON.request.files.progressive[_].url);
     }
     return direct_links;
 }
+
 /* Header stuff */
 const set_referer_in_headers = () => {
     window.headers_['Referer'] = window.url;
@@ -119,8 +138,8 @@ const modify_headers = (header_array, _name, _value) => { // Credits: https://st
 }
 
 const onBeforeSendHeaders_callback = (details) => {
+    //Fired to modify request
     Object.keys(window.headers_).forEach(function (key) {
-        //console.log(details.requestHeaders);
         modify_headers(details.requestHeaders, key, window.headers_[key]);
     });
 
@@ -128,5 +147,6 @@ const onBeforeSendHeaders_callback = (details) => {
 }
 
 const OnBeforeRequestOptions = () => {
+    //Options differ in Chrome/Firefox
     return isFirefox() ? ['blocking', 'requestHeaders'] : ['blocking', 'requestHeaders', 'extraHeaders']
 }

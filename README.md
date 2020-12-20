@@ -17,7 +17,7 @@ Get schoolmouv's premium pdfs and videos - browser extension
 Browsers based on `Chromium` and `Firefox` should be compatible as well on Windows, Mac and Linux (usually not on Android)
 
 ## Install🔥
-Install it manually
+Install it manually from `source` folder
 
 See [this](https://developer.chrome.com/extensions/getstarted) for more info or
 drag and drop the xpi file into your browser (**firefox-like** only)
